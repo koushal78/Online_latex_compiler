@@ -3,9 +3,9 @@ FROM node:18
 
 # Install full LaTeX suite
 RUN apt-get update && \
-    apt-get install -y texlive-full && \
-    apt-get clean
-
+    apt-get install -y texlive-latex-base texlive-latex-recommended texlive-fonts-recommended \
+    texlive-latex-extra && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 # Set the working directory
 WORKDIR /app
 
