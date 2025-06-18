@@ -1,17 +1,22 @@
-FROM node:18-slim
+# Use Node.js as the base image
+FROM node:18
 
-# Install TeXLive and required tools
+# Install full LaTeX suite
 RUN apt-get update && \
-    apt-get install -y texlive-latex-base texlive-latex-recommended texlive-fonts-recommended \
-    texlive-latex-extra curl && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    apt-get install -y texlive-full && \
+    apt-get clean
 
-# Create app directory
+# Set the working directory
 WORKDIR /app
 
-# Copy and install
+# Copy all files
 COPY . .
+
+# Install Node.js dependencies
 RUN npm install
 
+# Expose app port
 EXPOSE 5000
-CMD ["node", "server.js"]
+
+# Start your Node app (index.js is your main file)
+CMD ["node", "index.js"]
